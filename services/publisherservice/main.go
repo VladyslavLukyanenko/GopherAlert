@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/VladyslavLukyanenko/twitch-discord-bot/configs"
 	"github.com/VladyslavLukyanenko/twitch-discord-bot/core"
+	"github.com/VladyslavLukyanenko/twitch-discord-bot/services/publisherservice/publishers"
 	log "github.com/sirupsen/logrus"
 	"github.com/streadway/amqp"
 )
@@ -85,6 +86,7 @@ func initAmqp() {
 		false,
 		nil,
 	)
+
 	log.Debug("Connected to RabbitMQ")
 }
 
@@ -97,7 +99,19 @@ func handler(channel <-chan amqp.Delivery) {
 			log.Errorf("Message %s couldn't be unmarshaled", message.Body)
 			continue
 		}
-		log.Debugf("Received webhook message: %s", webhook)
-		//business logic
+		log.Debugf("Received webhook message: %s", webhook.JSON)
+
+		switch webhook.DeliveryPlatform {
+		case core.Discord:
+			go publishers.PublishToDiscord(webhook)
+			break
+		case core.Telegram:
+			go publishers.PublishToTelegram(webhook)
+			break
+		case core.Slack:
+			go publishers.PublishToSlack(webhook)
+			break
+
+		}
 	}
 }
