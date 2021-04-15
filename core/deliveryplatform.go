@@ -2,7 +2,8 @@ package core
 
 type DeliveryPlatformType string
 
-const(
-	Twitch DeliveryPlatformType = DeliveryPlatformType(rune(iota))
-	Youtube
+const (
+	Discord DeliveryPlatformType = DeliveryPlatformType(rune(iota))
+	Telegram
+	Slack
 )
