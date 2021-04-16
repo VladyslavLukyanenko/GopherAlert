@@ -2,9 +2,9 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/VladyslavLukyanenko/GopherAlert/configs"
-	"github.com/VladyslavLukyanenko/GopherAlert/core"
-	"github.com/VladyslavLukyanenko/GopherAlert/services/publisherservice/publishers"
+	"github.com/VladyslavLukyanenko/twitch-discord-bot/configs"
+	"github.com/VladyslavLukyanenko/twitch-discord-bot/core"
+	"github.com/VladyslavLukyanenko/twitch-discord-bot/services/publisherservice/publishers"
 	log "github.com/sirupsen/logrus"
 	"github.com/streadway/amqp"
 )
@@ -99,7 +99,8 @@ func handler(channel <-chan amqp.Delivery) {
 			log.Errorf("Message %s couldn't be unmarshaled", message.Body)
 			continue
 		}
-		log.Debugf("Message %s unmarshaled correctly", message.Body)
+		log.Debugf("Received webhook message: %s", webhook.JSON)
+
 		switch webhook.DeliveryPlatform {
 		case core.Discord:
 			go publishers.PublishToDiscord(webhook)
@@ -110,6 +111,7 @@ func handler(channel <-chan amqp.Delivery) {
 		case core.Slack:
 			go publishers.PublishToSlack(webhook)
 			break
+
 		}
 	}
 }

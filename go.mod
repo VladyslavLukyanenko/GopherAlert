@@ -1,4 +1,4 @@
-module github.com/VladyslavLukyanenko/GopherAlert
+module github.com/VladyslavLukyanenko/twitch-discord-bot
 
 go 1.16
 

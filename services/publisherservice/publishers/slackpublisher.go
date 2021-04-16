@@ -2,7 +2,7 @@ package publishers
 
 import (
 	"bytes"
-	"github.com/VladyslavLukyanenko/GopherAlert/core"
+	"github.com/VladyslavLukyanenko/twitch-discord-bot/core"
 	log "github.com/sirupsen/logrus"
 	"net/http"
 )
@@ -19,5 +19,5 @@ func PublishToSlack(webhook core.Webhook) {
 		log.Errorf("Status code not 200")
 		return
 	}
-	log.Debugf("Sent webhook publish@slack")
+		log.Debugf("Sent webhook publish@slack")
 }
