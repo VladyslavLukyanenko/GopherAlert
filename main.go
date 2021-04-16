@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/VladyslavLukyanenko/twitch-discord-bot/configs"
+	"github.com/VladyslavLukyanenko/GopherAlert/configs"
 	log "github.com/sirupsen/logrus"
 )
 
