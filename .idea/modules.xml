@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/twitch-discord-bot.iml" filepath="$PROJECT_DIR$/.idea/twitch-discord-bot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/GopherAlert.iml" filepath="$PROJECT_DIR$/.idea/GopherAlert.iml" />
     </modules>
   </component>
 </project>
