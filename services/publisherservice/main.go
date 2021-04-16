@@ -2,9 +2,9 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/VladyslavLukyanenko/twitch-discord-bot/configs"
-	"github.com/VladyslavLukyanenko/twitch-discord-bot/core"
-	"github.com/VladyslavLukyanenko/twitch-discord-bot/services/publisherservice/publishers"
+	"github.com/VladyslavLukyanenko/GopherAlert/configs"
+	"github.com/VladyslavLukyanenko/GopherAlert/core"
+	"github.com/VladyslavLukyanenko/GopherAlert/services/publisherservice/publishers"
 	log "github.com/sirupsen/logrus"
 	"github.com/streadway/amqp"
 )

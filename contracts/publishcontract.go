@@ -1,6 +1,6 @@
 package contracts
 
-import "github.com/VladyslavLukyanenko/twitch-discord-bot/core"
+import "github.com/VladyslavLukyanenko/GopherAlert/core"
 
 type PublishContract struct {
 	Webhook core.Webhook

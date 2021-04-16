@@ -2,7 +2,7 @@ package publishers
 
 import (
 	"bytes"
-	"github.com/VladyslavLukyanenko/twitch-discord-bot/core"
+	"github.com/VladyslavLukyanenko/GopherAlert/core"
 	log "github.com/sirupsen/logrus"
 	"net/http"
 )
