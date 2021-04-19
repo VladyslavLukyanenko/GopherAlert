@@ -9,13 +9,14 @@ import (
 )
 
 var ENDPOINT_URL = "https://api.twitch.tv/helix/streams/?user_login="
+var TOKEN = GetTwitchToken()
+var CLIENT_ID = clientID
 
 func GetTwitchChannelStatus(twitchLogin string) string {
 
-	// var TOKEN = GetTwitchToken()
 	req, _ := http.NewRequest(http.MethodGet, ENDPOINT_URL+twitchLogin, nil)
-	req.Header.Add("Client-ID", "bug2jjuz0dkbmt1ybs1af6kh1jm968")
-	req.Header.Add("Authorization", "Bearer q50rgndfp6pe1ogilj31q3h4eokj9v")
+	req.Header.Add("Client-ID", CLIENT_ID)
+	req.Header.Add("Authorization", "Bearer " + TOKEN)
 
 	response, err := http.DefaultClient.Do(req)
 	if err != nil {
