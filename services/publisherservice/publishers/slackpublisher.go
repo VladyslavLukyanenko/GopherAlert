@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func PublishToSlack(webhook core.Webhook) {
+func PublishToSlack(webhook *core.Webhook) {
 	log.Debugf("Received webhook into publisher: %s", webhook.URI)
 	var jsonStr = []byte("{\"text\":\"Hello, World!\"}") //todo: Create an Embed and replace placeholders with data in webhook.JSON
 	res, err := http.Post(webhook.URI, "application/json", bytes.NewBuffer(jsonStr))
