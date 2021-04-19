@@ -4,5 +4,5 @@ type DeliveryPlatformType string
 
 const (
 	Discord DeliveryPlatformType = "Discord"
-	Slack = "Slack"
+	Slack                        = "Slack"
 )
