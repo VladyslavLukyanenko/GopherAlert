@@ -99,17 +99,14 @@ func handler(channel <-chan amqp.Delivery) {
 			log.Errorf("Message %s couldn't be unmarshaled", message.Body)
 			continue
 		}
-		log.Debugf("Received webhook message: %s", webhook.JSON)
+		log.Debugf("Received webhook message: %s", webhook.NotificationType)
 
 		switch webhook.DeliveryPlatform {
 		case core.Discord:
-			go publishers.PublishToDiscord(webhook)
-			break
-		case core.Telegram:
-			go publishers.PublishToTelegram(webhook)
+			go publishers.PublishToDiscord(&webhook)
 			break
 		case core.Slack:
-			go publishers.PublishToSlack(webhook)
+			go publishers.PublishToSlack(&webhook)
 			break
 
 		}

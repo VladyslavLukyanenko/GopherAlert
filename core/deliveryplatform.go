@@ -3,7 +3,6 @@ package core
 type DeliveryPlatformType string
 
 const (
-	Discord DeliveryPlatformType = DeliveryPlatformType(rune(iota))
-	Telegram
-	Slack
+	Discord DeliveryPlatformType = "Discord"
+	Slack = "Slack"
 )
