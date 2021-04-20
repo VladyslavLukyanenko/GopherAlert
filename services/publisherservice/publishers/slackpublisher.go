@@ -19,8 +19,14 @@ func PublishToSlack(webhook *core.Webhook) {
 	payload.Blocks = append(payload.Blocks, localcore.Block{
 		Type: "section",
 		Text: &localcore.Text{
-			Type:  "plain_text",
-			Text:  fmt.Sprintf("%s just went live on %s", webhook.Notification.ChannelName, webhook.MonitoringPlatformType),
+			Type: "plain_text",
+			Text: func() string {
+				if webhook.NotificationType == core.Live {
+					return fmt.Sprintf("%s just went live on %s", webhook.Notification.ChannelName, webhook.MonitoringPlatformType)
+				} else {
+					return fmt.Sprintf("%s just uploaded a video on %s", webhook.Notification.ChannelName, webhook.MonitoringPlatformType)
+				}
+			}(),
 			Emoji: func() *bool { b := true; return &b }(),
 		},
 		Accessory: nil,
@@ -38,10 +44,14 @@ func PublishToSlack(webhook *core.Webhook) {
 			Type: "mrkdwn",
 			Text: func() string {
 				main := fmt.Sprintf("*<%s|%s>*\n", webhook.Notification.URI, webhook.Notification.Title)
-				if webhook.MonitoringPlatformType == core.Twitch {
-					main += fmt.Sprintf("Playing: %s for %d viewers\n", webhook.Notification.Game, webhook.Notification.Viewers)
+				if webhook.NotificationType == core.Live {
+					if webhook.MonitoringPlatformType == core.Twitch {
+						main += fmt.Sprintf("Playing: %s for %d viewers\n", webhook.Notification.Game, webhook.Notification.Viewers)
+					}
+					main += fmt.Sprintf("*<%s|Watch Stream>*", webhook.Notification.URI)
+				}else {
+					main += fmt.Sprintf("*<%s|Watch Video>*", webhook.Notification.URI)
 				}
-				main += fmt.Sprintf("*<%s|Watch Stream>*", webhook.Notification.URI)
 				return main
 			}(),
 			Emoji: nil,
@@ -63,7 +73,7 @@ func PublishToSlack(webhook *core.Webhook) {
 		Type:      "context",
 		Text:      nil,
 		Accessory: nil,
-		Elements:  []localcore.Text{{
+		Elements: []localcore.Text{{
 			Type:  "plain_text",
 			Text:  "GopherAlert",
 			Emoji: func() *bool { b := true; return &b }(),
