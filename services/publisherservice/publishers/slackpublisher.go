@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	localcore "github.com/VladyslavLukyanenko/GopherAlert/PublisherService/core"
 	"github.com/VladyslavLukyanenko/GopherAlert/core"
-	localcore "github.com/VladyslavLukyanenko/GopherAlert/services/publisherservice/core"
 	log "github.com/sirupsen/logrus"
 	"io/ioutil"
 	"net/http"
@@ -49,7 +49,7 @@ func PublishToSlack(webhook *core.Webhook) {
 						main += fmt.Sprintf("Playing: %s for %d viewers\n", webhook.Notification.Game, webhook.Notification.Viewers)
 					}
 					main += fmt.Sprintf("*<%s|Watch Stream>*", webhook.Notification.URI)
-				}else {
+				} else {
 					main += fmt.Sprintf("*<%s|Watch Video>*", webhook.Notification.URI)
 				}
 				return main

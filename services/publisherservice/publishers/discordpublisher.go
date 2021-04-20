@@ -3,8 +3,8 @@ package publishers
 import (
 	"bytes"
 	"fmt"
+	localcore "github.com/VladyslavLukyanenko/GopherAlert/PublisherService/core"
 	"github.com/VladyslavLukyanenko/GopherAlert/core"
-	localcore "github.com/VladyslavLukyanenko/GopherAlert/services/publisherservice/core"
 	log "github.com/sirupsen/logrus"
 	"io/ioutil"
 	"net/http"
@@ -29,7 +29,6 @@ func PublishToDiscord(webhook *core.Webhook) {
 		},
 		Timestamp: time.Now(),
 	}
-	log.Debug(webhook.MonitoringPlatformType)
 	switch webhook.NotificationType {
 	case core.Live:
 		{
