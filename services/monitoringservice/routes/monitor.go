@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/VladyslavLukyanenko/GopherAlert/core"
-	main "github.com/VladyslavLukyanenko/MonitoringService"
+	"github.com/VladyslavLukyanenko/MonitoringService/database"
 	"github.com/VladyslavLukyanenko/MonitoringService/models"
 	log "github.com/sirupsen/logrus"
 )
@@ -16,9 +16,9 @@ func MonitorAddTask(data string) {
 		log.Error("Error while unmarshalling")
 		return
 	}
-	for name, fn := range main.Monitors {
-		if name == monitor.MonitoringPlatform {
-			result, err := main.Database.Collection("monitors").InsertOne(context.TODO(), models.Monitor{
+	for name, fn := range database.Monitors {
+		if name == string(monitor.MonitoringPlatform) {
+			result, err := database.Database.Collection("monitors").InsertOne(context.TODO(), models.Monitor{
 				Channel:          monitor.Channel,
 				MonitorDelay:     monitor.Delay,
 				WebhookURI:       monitor.WebhookURI,
@@ -29,7 +29,7 @@ func MonitorAddTask(data string) {
 			}
 			ctx := context.Background()
 			ctx, cancel := context.WithCancel(ctx)
-			main.ActiveMonitors[monitor.Channel] = cancel
+			database.ActiveMonitors[monitor.Channel] = cancel
 			go fn(monitor, ctx)
 		}
 	}
@@ -41,12 +41,12 @@ func MonitorRemoveTask(data string) {
 		log.Error("Error while unmarshalling")
 		return
 	}
-	res := main.Database.Collection("monitors").FindOneAndDelete(context.TODO(), models.Monitor{Channel: monitor.Channel})
+	res := database.Database.Collection("monitors").FindOneAndDelete(context.TODO(), models.Monitor{Channel: monitor.Channel})
 	if res.Err() != nil {
 		log.Error("Error while deleting entry in the database")
 		return
 	}
-	cancelFn := main.ActiveMonitors[monitor.Channel]
+	cancelFn := database.ActiveMonitors[monitor.Channel]
 	if cancelFn != nil {
 		cancelFn()
 	}
