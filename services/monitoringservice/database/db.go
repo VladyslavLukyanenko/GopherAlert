@@ -23,7 +23,7 @@ func InitMongo() {
 		log.Fatal(err)
 	}
 	ctx := context.Background()
-	err = client.Connect(context.Background())
+	err = client.Connect(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
