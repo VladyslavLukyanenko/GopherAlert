@@ -8,7 +8,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
-	"time"
 )
 
 var Database *mongo.Database
@@ -23,18 +22,11 @@ func InitMongo() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-	err = client.Connect(ctx)
+	ctx := context.Background()
+	err = client.Connect(context.Background())
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	defer func() {
-		if err = client.Disconnect(ctx); err != nil {
-			panic(err)
-		}
-	}()
 
 	err = client.Ping(ctx, readpref.Primary())
 	if err != nil {

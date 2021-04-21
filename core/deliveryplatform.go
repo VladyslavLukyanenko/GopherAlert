@@ -3,6 +3,6 @@ package core
 type DeliveryPlatformType string
 
 const (
-	Discord DeliveryPlatformType = "Discord"
-	Slack                        = "Slack"
+	Discord DeliveryPlatformType = "discord"
+	Slack                        = "slack"
 )

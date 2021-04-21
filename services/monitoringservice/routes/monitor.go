@@ -18,14 +18,14 @@ func MonitorAddTask(data string) {
 	}
 	for name, fn := range database.Monitors {
 		if name == string(monitor.MonitoringPlatform) {
-			result, err := database.Database.Collection("monitors").InsertOne(context.TODO(), models.Monitor{
+			_, err := database.Database.Collection("monitors").InsertOne(context.TODO(), models.Monitor{
 				Channel:          monitor.Channel,
 				MonitorDelay:     monitor.Delay,
 				WebhookURI:       monitor.WebhookURI,
 				DeliveryPlatform: monitor.DeliveryPlatform,
 			})
 			if err != nil {
-				log.Errorf("Error while inserting monitor to database, %s", result)
+				log.Errorf("Error while inserting monitor to database, %s", err)
 			}
 			ctx := context.Background()
 			ctx, cancel := context.WithCancel(ctx)
