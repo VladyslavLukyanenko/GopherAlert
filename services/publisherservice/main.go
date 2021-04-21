@@ -80,7 +80,7 @@ func initAmqp() {
 	log.Debugf("Binded to queue %s", q.Name)
 	messages, err = ch.Consume(
 		q.Name,
-		"pubisher-service",
+		"publisher-service",
 		true,
 		false,
 		false,
