@@ -99,7 +99,7 @@ func BindQueueToFunction(routingKey string, function func(amqp.Delivery))  {
 func handler(channel <-chan amqp.Delivery) {
 	for message := range channel {
 		log.Debugf("Received message: %s", message.Body)
-		webhook := &contracts.
+		webhook := contracts
 		err := json.Unmarshal(message.Body, &webhook)
 		if err != nil {
 
