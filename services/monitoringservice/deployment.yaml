@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monitoringservice-deployment
+  labels:
+    app: monitoringservice
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: monitoringservice
+      labels:
+        app: monitoringservice
+    spec:
+      containers:
+        - name: monitoringservice
+          image: sealedvoid/monitoringservice:latest
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: monitoringservice

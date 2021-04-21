@@ -1,0 +1,4 @@
+RabbitMQ:
+  URI: AMQP_CONNECTION_URL
+Logger:
+  Level: Trace

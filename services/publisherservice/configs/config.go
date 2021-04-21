@@ -12,7 +12,7 @@ type config struct {
 }
 
 type rabbitMQ struct {
- 	URI string
+	URI string
 }
 type logger struct {
 	Level string

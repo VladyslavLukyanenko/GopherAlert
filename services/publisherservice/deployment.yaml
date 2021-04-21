@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: publisherservice-deployment
+  labels:
+    app: publisherservice
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: publisherservice
+      labels:
+        app: publisherservice
+    spec:
+      containers:
+        - name: publisherservice
+          image: sealedvoid/publisherservice:latest
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: publisherservice

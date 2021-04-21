@@ -1,0 +1,6 @@
+RabbitMQ:
+  URI: AMQP_CONNECTION_URL
+Logger:
+  Level: Warn
+MongoDB:
+  URI: MONGO_CONNECTION_URL
