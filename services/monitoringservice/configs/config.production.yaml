@@ -3,4 +3,4 @@ RabbitMQ:
 Logger:
   Level: Warn
 MongoDB:
-  
+  URI: mongodb+srv://root:opwswSu6uditi8ky@gopheralert.odmaj.mongodb.net/monitoring?retryWrites=true&w=majority

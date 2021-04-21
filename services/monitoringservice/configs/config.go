@@ -9,6 +9,7 @@ import (
 type config struct {
 	RabbitMQ rabbitMQ
 	Logger logger
+	MongoDB mongodb
 }
 
 type rabbitMQ struct {
@@ -16,6 +17,9 @@ type rabbitMQ struct {
 }
 type logger struct {
 	Level string
+}
+type mongodb struct {
+	URI string
 }
 
 var AppConfig config
