@@ -1,4 +1,4 @@
 RabbitMQ:
-  URI: amqps://tvygwybl:sAlaFyRMjc5Vn9CEz7B4mAy_mofHlxSo@cow.rmq2.cloudamqp.com/tvygwybl
+  URI: amqps://psoxlllh:CGbU2fNW9gixVF0s28W1AATVJ-mpw29T@cow.rmq2.cloudamqp.com/psoxlllh
 Logger:
   Level: Trace

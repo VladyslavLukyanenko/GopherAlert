@@ -17,12 +17,12 @@ func main() {
 func initAmqp() {
 	var _ error
 
-	conn, _ = amqp.Dial("amqps://tvygwybl:sAlaFyRMjc5Vn9CEz7B4mAy_mofHlxSo@cow.rmq2.cloudamqp.com/tvygwybl")
+	conn, _ = amqp.Dial("amqps://psoxlllh:CGbU2fNW9gixVF0s28W1AATVJ-mpw29T@cow.rmq2.cloudamqp.com/psoxlllh")
 
 	ch, _ = conn.Channel()
 
 	_ = ch.ExchangeDeclare(
-		"publisher-service-exchange",
+		"monitoring-service-exchange",
 		"direct",
 		true,
 		false,
@@ -32,19 +32,19 @@ func initAmqp() {
 	)
 	monitor := core.Monitor{
 		Channel:            "togglebit",
-		Delay:              30,
-		WebhookURI:         "https://discord.com/api/webhooks/804199560963948544/wSu1HmcVfDw_djm0zFqaiDerfBo1b08E3KvMeXjfFVvR7f-7xhTzfVdEi9xM9K8kCkKH",
-		MonitoringPlatform: core.Youtube,
-		DeliveryPlatform:   core.Discord,
+		//Delay:              30,
+		//WebhookURI:         "https://hooks.slack.com/services/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",
+		//MonitoringPlatform: core.Youtube,
+		//DeliveryPlatform:   core.Slack,
 	}
 	mo, _ := json.Marshal(&monitor)
 	contract := contracts.MonitoringContract{
-		RoutingKey: "monitor-add-task",
+		RoutingKey: "monitor-remove-task",
 		Data:       string(mo),
 	}
 	payload, _ := json.Marshal(&contract)
 	err := ch.Publish(
-		"publisher-service-exchange",
+		"monitoring-service-exchange",
 		"monitoring-service",
 		false,
 		false,

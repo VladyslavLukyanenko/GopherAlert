@@ -7,6 +7,7 @@ import (
 	"github.com/VladyslavLukyanenko/MonitoringService/database"
 	"github.com/VladyslavLukyanenko/MonitoringService/models"
 	log "github.com/sirupsen/logrus"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 func MonitorAddTask(data string) {
@@ -41,9 +42,9 @@ func MonitorRemoveTask(data string) {
 		log.Error("Error while unmarshalling")
 		return
 	}
-	res := database.Database.Collection("monitors").FindOneAndDelete(context.TODO(), models.Monitor{Channel: monitor.Channel})
+	res := database.Database.Collection("monitors").FindOneAndDelete(context.TODO(), bson.D{{"channel", monitor.Channel}})
 	if res.Err() != nil {
-		log.Error("Error while deleting entry in the database")
+		log.Errorf("Error while deleting entry in the database, %s", res.Err())
 		return
 	}
 	cancelFn := database.ActiveMonitors[monitor.Channel]

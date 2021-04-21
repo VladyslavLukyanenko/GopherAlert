@@ -8,6 +8,3 @@ import (
 func TwitchMonitor(monitor core.Monitor, ctx context.Context)  {
 	
 }
-func TwitchLiveMonitor() {
-
-}
