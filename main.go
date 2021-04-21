@@ -31,7 +31,7 @@ func initAmqp() {
 		nil,
 	)
 	monitor := core.Monitor{
-		Channel:            "togglebit",
+		Channel: "togglebit",
 		//Delay:              30,
 		//WebhookURI:         "https://hooks.slack.com/services/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",
 		//MonitoringPlatform: core.Youtube,
