@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: discordservice-deployment
+  labels:
+    app: discordservice
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: discordservice
+      labels:
+        app: discordservice
+    spec:
+      containers:
+        - name: discordservice
+          image: sealedvoid/discordservice:latest
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: discordservice

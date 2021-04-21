@@ -2,9 +2,9 @@ package messagebroker
 
 import (
 	"encoding/json"
+	"github.com/VladyslavLukyanenko/GopherAlert/MonitoringService/configs"
+	localcore "github.com/VladyslavLukyanenko/GopherAlert/MonitoringService/core"
 	"github.com/VladyslavLukyanenko/GopherAlert/contracts"
-	"github.com/VladyslavLukyanenko/MonitoringService/configs"
-	localcore "github.com/VladyslavLukyanenko/MonitoringService/core"
 	log "github.com/sirupsen/logrus"
 	"github.com/streadway/amqp"
 )

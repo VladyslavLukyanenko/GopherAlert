@@ -2,8 +2,8 @@ package monitors
 
 import (
 	"encoding/json"
+	"github.com/VladyslavLukyanenko/GopherAlert/MonitoringService/messagebroker"
 	"github.com/VladyslavLukyanenko/GopherAlert/core"
-	"github.com/VladyslavLukyanenko/MonitoringService/messagebroker"
 	log "github.com/sirupsen/logrus"
 	"github.com/streadway/amqp"
 )

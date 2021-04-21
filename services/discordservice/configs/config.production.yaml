@@ -1,0 +1,8 @@
+RabbitMQ:
+  URI: amqps://psoxlllh:CGbU2fNW9gixVF0s28W1AATVJ-mpw29T@cow.rmq2.cloudamqp.com/psoxlllh
+Logger:
+  Level: Warn
+MongoDB:
+  URI: mongodb+srv://root:opwswSu6uditi8ky@gopheralert.odmaj.mongodb.net/discord?retryWrites=true&w=majority
+Discord:
+  Token: ODM0NTAzMjQzMTE5NDYwMzUy.YIB1tQ.x9NaD5JJtXfVzI9ikRYA1FSfdRM

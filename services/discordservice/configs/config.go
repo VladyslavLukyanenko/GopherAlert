@@ -10,6 +10,7 @@ type config struct {
 	RabbitMQ rabbitMQ
 	Logger   logger
 	MongoDB  mongodb
+	Discord discord
 }
 
 type rabbitMQ struct {
@@ -20,6 +21,9 @@ type logger struct {
 }
 type mongodb struct {
 	URI string
+}
+type discord struct {
+	Token string
 }
 
 var AppConfig config

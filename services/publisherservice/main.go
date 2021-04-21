@@ -7,6 +7,9 @@ import (
 	"github.com/VladyslavLukyanenko/GopherAlert/core"
 	log "github.com/sirupsen/logrus"
 	"github.com/streadway/amqp"
+	"os"
+	"os/signal"
+	"syscall"
 )
 
 var conn *amqp.Connection
@@ -18,7 +21,9 @@ func main() {
 	configs.ReadConfig()
 	initAmqp()
 	go handler(messages)
-	select {}
+	sc := make(chan os.Signal, 1)
+	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
+	<-sc
 }
 
 func initAmqp() {
