@@ -1,4 +1,4 @@
 RabbitMQ:
-  URI: amqps://tvygwybl:sAlaFyRMjc5Vn9CEz7B4mAy_mofHlxSo@cow.rmq2.cloudamqp.com/tvygwybl
+  URI: AMQP_CONNECTION_URL
 Logger:
   Level: Warn

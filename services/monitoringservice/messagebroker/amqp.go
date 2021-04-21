@@ -77,7 +77,7 @@ func InitAMQP() {
 		nil,
 	)
 	if err != nil {
-		log.Panic("Error while binding queue")
+		log.Panicf("Error while binding queue, %s", err.Error())
 		return
 	}
 	log.Debugf("Binded to queue %s", queue.Name)
