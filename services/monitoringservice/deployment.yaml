@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: publisherservice-deployment
+  name: monitoringservice-deployment
   labels:
-    app: publisherservice
+    app: monitoringservice
 spec:
   replicas: 1
   template:
     metadata:
-      name: publisherservice
+      name: monitoringservice
       labels:
-        app: publisherservice
+        app: monitoringservice
     spec:
       containers:
-        - name: publisherservice
-          image: sealedvoid/publisherservice:latest
+        - name: monitoringservice
+          image: sealedvoid/monitoringservice:latest
           imagePullPolicy: IfNotPresent
       restartPolicy: Always
   selector:
     matchLabels:
-      app: publisherservice
+      app: monitoringservice

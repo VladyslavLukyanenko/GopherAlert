@@ -1,4 +1,4 @@
-package main
+package messagebroker
 
 import (
 	"encoding/json"
@@ -10,7 +10,7 @@ import (
 )
 
 var conn *amqp.Connection
-var ch *amqp.Channel
+var Channel *amqp.Channel
 var channel <-chan amqp.Delivery
 var amqpRoutes []localcore.Route
 
@@ -23,15 +23,24 @@ func InitAMQP() {
 	}
 	log.Debug("Created connection")
 
-	ch, err = conn.Channel()
+	Channel, err = conn.Channel()
 	if err != nil {
 		log.Panic("Error while creating channel")
 		return
 	}
 	log.Debug("Created channel")
 
-	err = ch.ExchangeDeclare(
+	err = Channel.ExchangeDeclare(
 		"monitoring-service-exchange",
+		"direct",
+		true,
+		false,
+		false,
+		false,
+		nil,
+	)
+	err = Channel.ExchangeDeclare(
+		"publisher-service-exchange",
 		"direct",
 		true,
 		false,
@@ -46,7 +55,7 @@ func InitAMQP() {
 	}
 	log.Debugf("Declared exchange %s", "monitoring-service-exchange")
 
-	queue, err := ch.QueueDeclare(
+	queue, err := Channel.QueueDeclare(
 		"monitoring-service-queue",
 		true,
 		false,
@@ -60,7 +69,7 @@ func InitAMQP() {
 		return
 	}
 	log.Debugf("Declared queue %s", queue.Name)
-	err = ch.QueueBind(
+	err = Channel.QueueBind(
 		queue.Name,
 		"monitoring-service",
 		"monitoring-service-exchange",
@@ -72,7 +81,7 @@ func InitAMQP() {
 		return
 	}
 	log.Debugf("Binded to queue %s", queue.Name)
-	channel, err = ch.Consume(
+	channel, err = Channel.Consume(
 		queue.Name,
 		"monitoring-service",
 		true,
@@ -86,6 +95,7 @@ func InitAMQP() {
 		return
 	}
 	log.Debugf("Consuming queue %s", queue.Name)
+
 	log.Debug("Connected to RabbitMQ")
 	go handler(channel)
 }
@@ -96,6 +106,7 @@ func BindQueueToFunction(routingKey string, function func(data string)) {
 		RouteFunction: function,
 	})
 }
+
 
 func handler(channel <-chan amqp.Delivery) {
 	for message := range channel {
