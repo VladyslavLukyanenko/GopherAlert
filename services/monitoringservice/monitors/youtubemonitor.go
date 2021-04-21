@@ -32,7 +32,7 @@ func YoutubeMonitor(monitor core.Monitor, ctx context.Context) {
 					MonitoringPlatformType: monitor.MonitoringPlatform,
 				}
 				payload, err := json.Marshal(&webhook)
-				err = messagebroker.Channel.Publish("", "", false, false, amqp.Publishing{
+				err = messagebroker.Channel.Publish("publisher-service-exchange", "publisher-service", false, false, amqp.Publishing{
 					DeliveryMode: amqp.Transient,
 					ContentType:  "application/json",
 					Body:         payload,
@@ -40,7 +40,7 @@ func YoutubeMonitor(monitor core.Monitor, ctx context.Context) {
 				if err != nil {
 					return
 				}
-				time.Sleep(time.Duration(monitor.Delay * 30000))
+				time.Sleep(time.Duration(monitor.Delay * 1000))
 			}
 		}
 

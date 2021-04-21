@@ -5,7 +5,6 @@ import (
 	"github.com/VladyslavLukyanenko/GopherAlert/contracts"
 	"github.com/VladyslavLukyanenko/GopherAlert/core"
 	"github.com/streadway/amqp"
-	"time"
 )
 
 var conn *amqp.Connection
@@ -23,17 +22,17 @@ func initAmqp() {
 	ch, _ = conn.Channel()
 
 	_ = ch.ExchangeDeclare(
-		"test-exchange", // name
-		"direct",        // type
-		true,            // durable
-		false,           // auto-deleted
-		false,           // internal
-		false,           // noWait
-		nil,             // arguments
+		"publisher-service-exchange",
+		"direct",
+		true,
+		false,
+		false,
+		false,
+		nil,
 	)
 	monitor := core.Monitor{
 		Channel:            "togglebit",
-		Delay:              30000,
+		Delay:              30,
 		WebhookURI:         "https://discord.com/api/webhooks/804199560963948544/wSu1HmcVfDw_djm0zFqaiDerfBo1b08E3KvMeXjfFVvR7f-7xhTzfVdEi9xM9K8kCkKH",
 		MonitoringPlatform: core.Youtube,
 		DeliveryPlatform:   core.Discord,
@@ -53,7 +52,6 @@ func initAmqp() {
 			DeliveryMode: amqp.Transient,
 			ContentType:  "application/json",
 			Body:         payload,
-			Timestamp:    time.Now(),
 		})
 	if err != nil {
 		print(err)
