@@ -1,0 +1,6 @@
+RabbitMQ:
+  URI: amqps://psoxlllh:CGbU2fNW9gixVF0s28W1AATVJ-mpw29T@cow.rmq2.cloudamqp.com/psoxlllh
+Logger:
+  Level: Warn
+MongoDB:
+  URI: mongodb+srv://root:opwswSu6uditi8ky@gopheralert.odmaj.mongodb.net/monitoring?retryWrites=true&w=majority
