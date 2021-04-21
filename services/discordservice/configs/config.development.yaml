@@ -1,0 +1,8 @@
+RabbitMQ:
+  URI: AMQP_CONNECTION_URL
+Logger:
+  Level: Trace
+MongoDB:
+  URI: MONGO_CONNECTION_URL
+Discord:
+  Token: DISCORD_TOKEN

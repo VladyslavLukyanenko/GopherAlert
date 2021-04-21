@@ -3,9 +3,9 @@ package routes
 import (
 	"context"
 	"encoding/json"
+	"github.com/VladyslavLukyanenko/GopherAlert/MonitoringService/database"
+	"github.com/VladyslavLukyanenko/GopherAlert/MonitoringService/models"
 	"github.com/VladyslavLukyanenko/GopherAlert/core"
-	"github.com/VladyslavLukyanenko/MonitoringService/database"
-	"github.com/VladyslavLukyanenko/MonitoringService/models"
 	log "github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
 )

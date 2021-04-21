@@ -1,12 +1,15 @@
 package main
 
 import (
-	"github.com/VladyslavLukyanenko/MonitoringService/configs"
-	"github.com/VladyslavLukyanenko/MonitoringService/database"
-	"github.com/VladyslavLukyanenko/MonitoringService/messagebroker"
-	"github.com/VladyslavLukyanenko/MonitoringService/monitors"
-	"github.com/VladyslavLukyanenko/MonitoringService/routes"
+	"github.com/VladyslavLukyanenko/GopherAlert/MonitoringService/configs"
+	"github.com/VladyslavLukyanenko/GopherAlert/MonitoringService/database"
+	"github.com/VladyslavLukyanenko/GopherAlert/MonitoringService/messagebroker"
+	"github.com/VladyslavLukyanenko/GopherAlert/MonitoringService/monitors"
+	"github.com/VladyslavLukyanenko/GopherAlert/MonitoringService/routes"
 	log "github.com/sirupsen/logrus"
+	"os"
+	"os/signal"
+	"syscall"
 )
 
 
@@ -16,7 +19,9 @@ func main() {
 	database.InitMongo()
 	initAMQP()
 	initMonitors()
-	select {}
+	sc := make(chan os.Signal, 1)
+	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
+	<-sc
 }
 
 func initAMQP() {
