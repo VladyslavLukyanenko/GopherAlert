@@ -12,7 +12,7 @@ import (
 var conn *amqp.Connection
 var ch *amqp.Channel
 var channel <-chan amqp.Delivery
-var amqproutes []localcore.Route
+var amqpRoutes []localcore.Route
 
 func InitAMQP() {
 	var err error
@@ -90,8 +90,8 @@ func InitAMQP() {
 	go handler(channel)
 }
 
-func BindQueueToFunction(routingKey string, function func(message amqp.Delivery, data *interface{})) {
-	amqproutes = append(amqproutes, localcore.Route{
+func BindQueueToFunction(routingKey string, function func(data string)) {
+	amqpRoutes = append(amqpRoutes, localcore.Route{
 		RoutingKey:    routingKey,
 		RouteFunction: function,
 	})
@@ -106,15 +106,9 @@ func handler(channel <-chan amqp.Delivery) {
 			log.Errorf("Message %s couldn't be unmarshaled", message.Body)
 			continue
 		}
-		for _, route := range amqproutes {
+		for _, route := range amqpRoutes {
 			if route.RoutingKey == contract.RoutingKey {
-				var data interface{}
-				err := json.Unmarshal(contract.Data, &data)
-				if err != nil {
-
-					return
-				}
-				go route.RouteFunction(message, &data)
+				go route.RouteFunction(contract.Data)
 			}
 		}
 	}

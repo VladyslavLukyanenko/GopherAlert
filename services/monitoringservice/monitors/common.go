@@ -1,1 +1,5 @@
 package monitors
+
+func Notify() {
+
+}
