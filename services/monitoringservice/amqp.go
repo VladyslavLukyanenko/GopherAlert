@@ -14,7 +14,7 @@ var ch *amqp.Channel
 var channel <-chan amqp.Delivery
 var amqproutes []localcore.Route
 
-func InitAMQP()  {
+func InitAMQP() {
 	var err error
 	conn, err = amqp.Dial(configs.AppConfig.RabbitMQ.URI)
 	if err != nil || conn == nil {
@@ -90,19 +90,32 @@ func InitAMQP()  {
 	go handler(channel)
 }
 
-func BindQueueToFunction(routingKey string, function func(amqp.Delivery))  {
+func BindQueueToFunction(routingKey string, function func(message amqp.Delivery, data *interface{})) {
 	amqproutes = append(amqproutes, localcore.Route{
 		RoutingKey:    routingKey,
 		RouteFunction: function,
 	})
 }
+
 func handler(channel <-chan amqp.Delivery) {
 	for message := range channel {
 		log.Debugf("Received message: %s", message.Body)
-		webhook := contracts
-		err := json.Unmarshal(message.Body, &webhook)
+		contract := contracts.MonitoringContract{}
+		err := json.Unmarshal(message.Body, &contract)
 		if err != nil {
+			log.Errorf("Message %s couldn't be unmarshaled", message.Body)
+			continue
+		}
+		for _, route := range amqproutes {
+			if route.RoutingKey == contract.RoutingKey {
+				var data interface{}
+				err := json.Unmarshal(contract.Data, &data)
+				if err != nil {
 
+					return
+				}
+				go route.RouteFunction(message, &data)
+			}
 		}
 	}
 }
